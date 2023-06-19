@@ -31,27 +31,27 @@ class ApiServiceImpl implements ApiService{
   }
 
   @override
-  Future delete(String url) async {
+  Future<Response?> delete(String url) async {
     var response = await dio?.delete(DioApiConstants.baseUrl);
     return response;
   }
 
   @override
-  Future get(String url, {Map<String, dynamic>? queryParameters}) async {
+  Future<Response?> get(String url, {Map<String, dynamic>? queryParameters}) async {
     var response = await dio?.get(DioApiConstants.baseUrl + url,queryParameters: queryParameters);
-    return response?.data;
+    return response;
   }
 
   @override
-  Future patch(String url, Map data) async {
+  Future<Response?> patch(String url, Map data) async {
     var response = await dio?.patch(DioApiConstants.baseUrl+url , data: data);
-    return response?.data;
+    return response;
   }
 
   @override
-  Future post(String url, {Map<dynamic, dynamic>? data}) async {
+  Future<Response?> post(String url, {Map<dynamic, dynamic>? data}) async {
     var response = await dio?.post(DioApiConstants.baseUrl+url , data: data);
-    return response?.data;
+    return response;
   }
   
 }

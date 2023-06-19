@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_architecture/base/base_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../bloc/login_cubit.dart';
@@ -16,19 +17,19 @@ class LoginView extends StatelessWidget {
 
     return Scaffold(backgroundColor: Colors.white,
       body: BlocProvider(create: (context)=>loginCubit,
-        child: BlocConsumer<LoginCubit, LoginState>(
+        child: BlocConsumer<LoginCubit, BaseState>(
           bloc: loginCubit,
           listener: (context, state) {
-            if (state is LoginSuccess) {
+            if (state is LoginState) {
 
               print("Login is sucess");
-            } else if (state is LoginFailure) {
-              print(state.error);
+            } else if (state is ErrorState) {
+              print(state.errorMessage);
 
             }
           },
           builder: (context, state) {
-            if (state is LoginLoading) {
+            if (state is LoadingState) {
               return const Center(child: CircularProgressIndicator());
             }
             return Column(
@@ -54,7 +55,7 @@ class LoginView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                BlocBuilder<LoginCubit, LoginState>(
+                BlocBuilder<LoginCubit, BaseState>(
                   builder: (context, state) {
                     return ElevatedButton(
                       onPressed: () {
